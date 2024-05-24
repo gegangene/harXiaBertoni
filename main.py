@@ -6,7 +6,10 @@ import nlos_high
 # import matplotlib.pyplot as plt
 # import numpy
 
-# h_b = 15 m; R_k = 0,8 km; f_G = 1800 MHz; r_h = 1 i 2 m; h_bd = 12 m; h_m = 1,5; różne rodzaje zabudowy
+# h_b = 15 m; R_k = 0,8 km;
+# f_G = 1800 MHz; r_h = 1 i 2 m;
+# h_bd = 12 m; h_m = 1,5;
+# różne rodzaje zabudowy
 
 def free_space_loss(R_k,f_G):
     return 32.4+20*math.log10(f_G*1000)+20*math.log10(R_k)
@@ -56,7 +59,7 @@ if LOS:
     exit(0)
 
 model=input("Typ trasy:"+pictures.models_merged+"\n\t>> ")[0].upper()
-if not (model=="S" or model=="P" or model=="B"):
+if not (model=="S" or model=="P" or model=="B" or model=="M"):
     input("Niepoprawny wybór trasy! Naciśnij ENTER aby zakończyć program.")
     exit(1)
 
@@ -83,6 +86,9 @@ if not height:
         case "B":
             print("Straty propagacji dla trasy schodkowej w niskiej zabudowie:",round(nlos_low.lateral(R_k, f_G, delta_h, r_h, h_m, h_BD),2),"dB")
             print(f"W porównaniu do strat w swobodnej przestrzeni:", round(free_space_loss(R_k,f_G),2),"dB")
+        case "M":
+            print("Straty propagacji dla trasy schodkowej w niskiej zabudowie:",round(nlos_low.merged(R_k, f_G, delta_h, r_h, h_m, h_BD), 2), "dB")
+            print(f"W porównaniu do strat w swobodnej przestrzeni:", round(free_space_loss(R_k, f_G), 2), "dB")
     exit(0)
 
 match model:
