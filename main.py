@@ -3,7 +3,7 @@ import pictures
 import los
 import nlos_low
 import nlos_high
-# import matplotlib.pyplot as plot
+# import matplotlib.pyplot as plt
 # import numpy
 
 # h_b = 15 m; R_k = 0,8 km; f_G = 1800 MHz; r_h = 1 i 2 m; h_bd = 12 m; h_m = 1,5; różne rodzaje zabudowy
@@ -43,12 +43,12 @@ if LOS:
         print(f"W porównaniu do strat w swobodnej przestrzeni:",round(free_space_loss(R_k,f_G),2),"dB")
         # for i in plotX:
         #     plotY.append(los.away(i,R_bk,f_G,h_b,h_m))
-        # plot.plot(plotX,plotFree,color="black")
-        # plot.plot(plotX,plotY)
-        # plot.plot(R_k,los.away(R_k,R_bk,f_G,h_b,h_m),"or")
-        # plot.xlabel("Odległość anten [km]")
-        # plot.ylabel("Straty propagacji w warunkach LOS")
-        # plot.show()
+        # plt.plot(plotX,plotFree,color="black")
+        # plt.plot(plotX,plotY)
+        # plt.plot(R_k,los.away(R_k,R_bk,f_G,h_b,h_m),"or")
+        # plt.xlabel("Odległość anten [km]")
+        # plt.ylabel("Straty propagacji w warunkach LOS")
+        # plt.show()
 
     else:
         print(f"Straty propagacji w warunkach LOS, odległość bliższa (bądź równa) niż punkt załamania fali ({round(R_bk,2)} m):",round(los.near(R_k,f_G,h_b),2),"dB")
@@ -72,7 +72,7 @@ if not height:
     if (delta_h<=-8) or (delta_h>=6):
         input("Różnica wysokości anteny stacji bazowej (h_b) i średniej wysokości budynków (h_BD) spoza zakresu (-8;6)! Naciśnij ENTER aby zakończyć program.")
         exit(1)
-    r_h=float(input("Odległość między budynkami [m]: "))/2
+    r_h=float(input("Odległość anteny terminala względem najbliższego budynku na trasie propagacji [m]: "))
     match model:
         case "S":
             print("Straty propagacji dla trasy schodkowej w niskiej zabudowie:",round(nlos_low.staircase(R_k, f_G, delta_h, r_h, h_m, h_BD),2),"dB")
