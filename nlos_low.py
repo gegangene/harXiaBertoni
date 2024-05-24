@@ -5,12 +5,12 @@ def L_rts(f_G,r_h,h_m,h_BD):
     delta_h_m=h_BD-h_m
     return 10*math.log10(f_G)-10*math.log10(r_h)+20*math.log10(delta_h_m)
 
-def correction(h_m,h_BD):
+def correction(r_h,h_m,h_BD):
     delta_h_m=h_BD-h_m
-    return 20*math.log10(delta_h_m/7.8)
+    return 20*math.log10(delta_h_m/7.8)+10*math.log10(20/r_h)
 
 def common(a, b, c, d, e, f, R_k, f_G, delta_h, r_h, h_m, h_BD):
-    return (a+b*math.log10(f_G))-(c+d*math.log10(f_G))*extra_math.sgn(delta_h)*math.log10(1+math.fabs(delta_h))+(e-f*extra_math.sgn(delta_h)*math.log10(1+math.fabs(delta_h))*math.log10(R_k))+L_rts(f_G,r_h,h_m,h_BD)+correction(h_m,h_BD)
+    return (a+b*math.log10(f_G))-(c+d*math.log10(f_G))*extra_math.sgn(delta_h)*math.log10(1+math.fabs(delta_h))+(e-f*extra_math.sgn(delta_h)*math.log10(1+math.fabs(delta_h))*math.log10(R_k))+correction(r_h,h_m,h_BD)+L_rts(f_G,r_h,h_m,h_BD)
 
 def staircase(R_k,f_G,delta_h,r_h,h_m,h_BD):
     return common(137, 35.16, 12.48, 4.16, 39.46, 4.13, R_k, f_G, delta_h, r_h, h_m, h_BD)
